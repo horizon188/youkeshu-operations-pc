@@ -5,6 +5,7 @@ import store from "./src/store";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./antd.css";
+import "./app.less";
 const About = () => <h2>页面一</h2>;
 const Users = () => <h2>页面二</h2>;
 ReactDom.render(

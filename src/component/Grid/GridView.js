@@ -1,94 +1,30 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./GridLess.less";
-import { Table, Tag, Space } from "antd";
+import { Table, Button, Menu, Dropdown } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+//分页配置
+const pageConfig = {
+  pageSizeOptions: ["10", "20", "30", "40"],
+  defaultPageSize: 10,
+};
 class TableComponent extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  onSelectInfoChange = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRowKeys, selectedRows);
-  };
   render() {
-    const data = [
-      {
-        key: "1",
-        name: "John Brown",
-        age: 32,
-        address: "New York No. 1 Lake Park",
-        tags: ["nice", "developer"],
-      },
-      {
-        key: "2",
-        name: "Jim Green",
-        age: 42,
-        address: "London No. 1 Lake Park",
-        tags: ["loser"],
-      },
-      {
-        key: "3",
-        name: "Joe Black",
-        age: 32,
-        address: "Sidney No. 1 Lake Park",
-        tags: ["cool", "teacher"],
-      },
-    ];
-    const columns = [
-      {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        render: (text) => <a>{text}</a>,
-      },
-      {
-        title: "Age",
-        dataIndex: "age",
-        key: "age",
-      },
-      {
-        title: "Address",
-        dataIndex: "address",
-        key: "address",
-      },
-      {
-        title: "Tags",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags) => (
-          <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? "geekblue" : "green";
-              if (tag === "loser") {
-                color = "volcano";
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
-      },
-      {
-        title: "Action",
-        key: "action",
-        render: (text, record) => (
-          <Space size="middle">
-            <a>Invite {record.name}</a>
-            <a>Delete</a>
-          </Space>
-        ),
-      },
-    ];
-
-    // 消息模板列表的勾选
-    const rowSelection = {
-      selectedRowKeys: ["1"],
-      onChange: this.onSelectInfoChange,
-    };
-
+    let {
+      pageChange,
+      scroll,
+      data,
+      rowSelection,
+      paginationProps,
+      batchBtns,
+      ...restProps
+    } = this.props;
+    const { dataSource, columns, total = 0, pageNum = 1, pageSize = 10 } = data;
+    console.log("batchBtns", batchBtns);
     /**
      * 页码控制
      * pageChange, total, pageNum, pageSize
@@ -115,24 +51,74 @@ class TableComponent extends React.Component {
         ...paginationProps,
       };
     };
+    const menu = () => {
+      let arr = [];
+      batchBtns.map((item) => {
+        if (item.dropdown) {
+          arr.push(item);
+        }
+      });
+      return (
+        <Menu>
+          {arr.map((item, index) => {
+            return (
+              <Menu.Item key={index}>
+                <span onClick={item.onClick}>{item.text}</span>
+              </Menu.Item>
+            );
+          })}
+        </Menu>
+      );
+    };
+    const beforeInfo = (item, index) => {
+      switch (item.dropdown) {
+        case true:
+          return (
+            <div style={{ marginRight: "auto" }} key={index}>
+              <Dropdown overlay={menu} trigger={["click"]}>
+                <Button>
+                  批量操作
+                  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </div>
+          );
+        default:
+          return (
+            <div key={index} className="mgl24">
+              <Button type={item.type} onClick={item.onClick}>
+                {item.text}
+              </Button>
+            </div>
+          );
+      }
+    };
     return (
       <div className={"tableComponet"}>
+        {/* 表格前的节点 */}
+        <div
+          style={{ display: "flex", justifyContent: "flex-end" }}
+          className="mgb24"
+        >
+          {batchBtns &&
+            batchBtns.map((item, index) => {
+              return beforeInfo(item, index);
+            })}
+        </div>
+
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={dataSource}
           bordered
           rowSelection={rowSelection}
-          pagination={
-            pageChange
-              ? pagination({
-                  pageChange,
-                  total,
-                  pageNum,
-                  pageSize,
-                  paginationProps,
-                })
-              : false
-          }
+          pagination={pagination({
+            pageChange,
+            total,
+            pageNum,
+            pageSize,
+            paginationProps,
+          })}
+          {...restProps}
         />
       </div>
     );
