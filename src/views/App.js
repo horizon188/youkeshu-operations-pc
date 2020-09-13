@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "./App.less";
 import { Tag, Space } from "antd";
-import { Grid } from "component";
+import { Grid, Query } from "component";
 import { tableSource } from "./../mock";
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +19,78 @@ class App extends React.Component {
     console.log(selectedRowKeys, selectedRows);
   };
   render() {
+    //查询条件
+    const queryConfig = [
+      {
+        elem_type: "Input",
+        zh_name: "模版ID",
+        en_name: "code",
+      },
+      {
+        elem_type: "Input",
+        zh_name: "模版名称",
+        en_name: "name",
+      },
+      {
+        elem_type: "Select",
+        zh_name: "类型",
+        en_name: "msgType",
+        options: [
+          {
+            value: null,
+            label: "全部",
+          },
+          {
+            value: "1",
+            label: "短信",
+          },
+          {
+            value: "4",
+            label: "微信",
+          },
+          {
+            value: "6",
+            label: "支付宝信息",
+          },
+          {
+            value: "3",
+            label: "APP 站内信",
+          },
+          {
+            value: "5",
+            label: "APP PUSH",
+          },
+        ],
+      },
+      {
+        elem_type: "Input",
+        zh_name: "更新账号",
+        en_name: "updatePerson",
+      },
+      {
+        elem_type: "Select",
+        zh_name: "状态",
+        en_name: "messageTemplateStatus",
+        options: [
+          {
+            value: null,
+            label: "全部",
+          },
+          {
+            value: "4",
+            label: "启用中",
+          },
+          {
+            value: "0",
+            label: "待启用",
+          },
+          {
+            value: "3",
+            label: "已禁用",
+          },
+        ],
+      },
+    ];
     const columns = [
       {
         title: "Name",
@@ -106,14 +178,19 @@ class App extends React.Component {
     };
     return (
       <div className={"app"}>
-        <Grid
+        <Query
+          queryConfig={queryConfig}
+          onSearch={(e) => console.log(e)}
+          onReset={(e) => console.log(e)}
+        ></Query>
+        {/* <Grid
           data={{ ...TableData }}
           rowSelection={rowSelection}
           pageChange={(pageNum, pageSize) => {
             console.log({ pageNum, pageSize });
           }}
           batchBtns={batchBtns()}
-        ></Grid>
+        ></Grid> */}
       </div>
     );
   }

@@ -1,2 +1,36 @@
 .query {
+  background-color: white;
+  padding: 24px 0 0 24px;
+  .ant-form-inline .ant-form-item {
+    margin-bottom: 24px !important;
+  }
+
+  .queryForm {
+    display: flex;
+    flex-wrap: wrap;
+    .queryItem,
+    .queryItem_time {
+      display: flex;
+      margin-right: 24px;
+      .queryLabel,
+      .queryLabel_time {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.85);
+        text-align: right;
+        line-height: 32px;
+        white-space: nowrap;
+      }
+      .queryLabel:after,
+      .queryLabel_time:after {
+        position: relative;
+        top: -0.5px;
+        margin: 0 8px 0 2px;
+        content: ":";
+      }
+      .queryContent,
+      .queryContent_time {
+        white-space: nowrap;
+      }
+    }
+  }
 }
