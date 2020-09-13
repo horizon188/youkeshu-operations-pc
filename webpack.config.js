@@ -73,6 +73,13 @@ module.exports = {
       filename: path.resolve(__dirname, 'dist/index.html')
     })
   ],
+  resolve: {
+    alias: {
+      component: path.join(__dirname, 'src/component'),
+    },
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    extensions: [".js", ".jsx", '.less', '.css']
+  },
   devServer: {
     hot: true, // 热替换
     contentBase: path.join(__dirname, 'dist'), // server文件的根目录

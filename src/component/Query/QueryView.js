@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './App.less'
+import './QueryLess.less'
 import {DatePicker} from 'antd'
-import { Grid } from 'component'
 class App extends React.Component {
 
     constructor(props) {
@@ -19,10 +18,12 @@ class App extends React.Component {
       
 
     render() {
+        const onChange =(date, dateString) => {
+            console.log(date, dateString);
+          }
         return (
-            <div className={'app'}>
-               <Grid></Grid>
-
+            <div className={'query'}>
+               
             </div>
         );
     }
