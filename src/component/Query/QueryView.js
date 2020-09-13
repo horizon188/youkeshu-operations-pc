@@ -1,33 +1,26 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import './QueryLess.less'
-import {DatePicker} from 'antd'
+import React from "react";
+import { connect } from "react-redux";
+import "./QueryLess.less";
+import { DatePicker } from "antd";
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    constructor(props) {
-        super(props);
-    }
+  onClick() {
+    this.props.dispatch({
+      type: "INCREMENT",
+    });
+    //   this.props.history.push('/about/')
+  }
 
-    onClick() {
-        this.props.dispatch({
-            type: 'INCREMENT',
-          })
-        //   this.props.history.push('/about/')
-    }
-    
-      
-
-    render() {
-        const onChange =(date, dateString) => {
-            console.log(date, dateString);
-          }
-        return (
-            <div className={'query'}>
-               
-            </div>
-        );
-    }
+  render() {
+    const onChange = (date, dateString) => {
+      console.log(date, dateString);
+    };
+    return <div className={"query"}></div>;
+  }
 }
-export default connect( state => ({
-    number: state.number
+export default connect((state) => ({
+  number: state.number,
 }))(App);
