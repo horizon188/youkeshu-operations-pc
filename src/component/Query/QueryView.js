@@ -8,6 +8,7 @@ class QueryComponet extends React.Component {
   constructor(props) {
     super(props);
     this.id = Math.random().toString(36).substr(2, 10);
+    this.formRef = React.createRef();
   }
 
   componentDidMount() {
@@ -15,7 +16,14 @@ class QueryComponet extends React.Component {
   }
 
   onFinish = (values) => {
-    console.log(values);
+    let { onSearch } = this.props;
+    onSearch(values);
+  };
+
+  onReset = () => {
+    let { onReset } = this.props;
+    onReset();
+    this.formRef.current.resetFields();
   };
 
   //获取初始数据
@@ -41,37 +49,11 @@ class QueryComponet extends React.Component {
     return itemList;
   };
 
-  //计算搜索栏布局
-  calLayout = () => {
-    //获取所有的宽度
+  // 动态设置label大小
+  setLabelLength = (itemList, rowNum) => {
     let queryEle = document.getElementById(this.id);
-    let queryWidth = queryEle.offsetWidth;
-    this.queryWidth = queryWidth;
-    let itemList = this.getInitValue();
-    // let maxList = [];
-    // let length = itemList.length;
-    // let cloneItemArr = [];
-    // 一行多长
-    let rowLength = 24; // 内边距24px
-    // 一行放几个
-    let rowNum = 0;
-    try {
-      itemList.map((item, index) => {
-        console.log("queryWidth", queryWidth, rowLength);
-        rowLength = rowLength + item.total + 24;
-        if (queryWidth < rowLength) {
-          console.log("2");
-          rowNum = index;
-          throw `一行多少个${rowNum}`;
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-    console.log("itemList", [...itemList]);
     if (itemList.length > rowNum) {
       for (let i = 0; i < rowNum; i++) {
-        console.log("i", i);
         let maxLabelLength = itemList[i].label;
         let startIndex = i + rowNum;
 
@@ -81,8 +63,6 @@ class QueryComponet extends React.Component {
             index < itemList.length;
             index = index + rowNum
           ) {
-            console.log("index", index);
-
             if (itemList[index].label > maxLabelLength) {
               maxLabelLength = itemList[index].label;
             }
@@ -98,23 +78,6 @@ class QueryComponet extends React.Component {
         }
       }
     }
-
-    console.log("itemList", itemList);
-    // for (let i = length; i > 0; i--) {
-    //   cloneItemArr = this.formatMaxLabel(itemList, i);
-    //   let arr = chunk(cloneItemArr, i);
-    //   let flag = true;
-    //   for (let item of arr) {
-    //     if (this.getTotalWidth(item) >= queryWidth) {
-    //       flag = false;
-    //       break;
-    //     }
-    //   }
-    //   if (flag) {
-    //     maxList = arr[0].map((item) => item.label);
-    //     break;
-    //   }
-    // }
     itemList.map((item, index) => {
       let nodes = queryEle.querySelectorAll(".queryLabel");
       Array.from(nodes).map((node, index) => {
@@ -122,9 +85,33 @@ class QueryComponet extends React.Component {
       });
     });
   };
+  //计算搜索栏布局
+  calLayout = () => {
+    //获取所有的宽度
+    let queryEle = document.getElementById(this.id);
+    let queryWidth = queryEle.offsetWidth;
+    this.queryWidth = queryWidth;
+    let itemList = this.getInitValue();
+    // 一行多长
+    let rowLength = 24; // 内边距24px
+    // 一行放几个
+    let rowNum = 0;
+    try {
+      itemList.map((item, index) => {
+        rowLength = rowLength + item.total + 24;
+        if (queryWidth < rowLength) {
+          rowNum = index;
+          throw `一行多少个${rowNum}`;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    this.setLabelLength(itemList, rowNum);
+  };
 
   renderFields = (qField, index) => {
-    const { defaultValues = {}, colLayout, searchFormItem } = this.props;
+    const { queryConfig } = this.props;
     const {
       elem_type,
       zh_name,
@@ -139,7 +126,10 @@ class QueryComponet extends React.Component {
       case "Input":
         content = (
           <Form.Item name={en_name}>
-            <Input placeholder="placeholder" />
+            <Input
+              style={{ width: "224px" }}
+              placeholder={`请选择${zh_name}`}
+            />
           </Form.Item>
         );
         break;
@@ -176,6 +166,14 @@ class QueryComponet extends React.Component {
       <div className="queryItem" key={en_name}>
         <div className="queryLabel">{zh_name}</div>
         <div className="queryContent">{content}</div>
+        {queryConfig && queryConfig.length === index + 1 && (
+          <div style={{ display: "flex" }}>
+            <Button type="primary" className="mgr24 mgl24" htmlType="submit">
+              搜索
+            </Button>
+            <Button onClick={() => this.onReset()}>重置</Button>
+          </div>
+        )}
       </div>
     );
   };
@@ -185,11 +183,11 @@ class QueryComponet extends React.Component {
     let { queryConfig } = this.props;
     return (
       <div className={"query"} id={this.id}>
-        <Form layout={"inline"} onFinish={this.onFinish}>
+        <Form layout={"inline"} onFinish={this.onFinish} ref={this.formRef}>
           <div className={"queryForm"}>
             {queryConfig &&
-              queryConfig.map((item) => {
-                return this.renderFields(item);
+              queryConfig.map((item, index) => {
+                return this.renderFields(item, index);
               })}
           </div>
         </Form>

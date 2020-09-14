@@ -63,7 +63,7 @@ class App extends React.Component {
         ],
       },
       {
-        elem_type: "Input",
+        elem_type: "InputNumber",
         zh_name: "更新账号",
         en_name: "updatePerson",
       },
@@ -181,8 +181,8 @@ class App extends React.Component {
         <div className="mgb24">
           <Query
             queryConfig={queryConfig}
-            onSearch={(e) => console.log(e)}
-            onReset={(e) => console.log(e)}
+            onSearch={(e) => console.log("sous", e)}
+            onReset={() => console.log("重置")}
           ></Query>
         </div>
 
