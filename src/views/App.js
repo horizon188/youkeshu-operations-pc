@@ -23,17 +23,17 @@ class App extends React.Component {
     const queryConfig = [
       {
         elem_type: "Input",
-        zh_name: "模版ID",
+        zh_name: "模",
         en_name: "code",
       },
       {
         elem_type: "Input",
-        zh_name: "模版名称",
+        zh_name: "模版",
         en_name: "name",
       },
       {
         elem_type: "Select",
-        zh_name: "类型",
+        zh_name: "类型莫",
         en_name: "msgType",
         options: [
           {
@@ -69,7 +69,7 @@ class App extends React.Component {
       },
       {
         elem_type: "Select",
-        zh_name: "状态",
+        zh_name: "状态哈哈哈",
         en_name: "messageTemplateStatus",
         options: [
           {

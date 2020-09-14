@@ -62,14 +62,17 @@ class QueryComponet extends React.Component {
         if (queryWidth < rowLength) {
           console.log("2");
           rowNum = index;
-          throw "一行多少个";
+          throw `一行多少个${rowNum}`;
         }
       });
-    } catch (error) {}
-    console.log("itemList", JSON.parse(JSON.stringify(itemList)));
+    } catch (error) {
+      console.log(error);
+    }
+    console.log("itemList", [...itemList]);
     if (itemList.length > rowNum) {
       for (let i = 0; i < rowNum; i++) {
-        let max = itemList[i].total;
+        console.log("i", i);
+        let maxLabelLength = itemList[i].label;
         let startIndex = i + rowNum;
 
         if (startIndex <= itemList.length) {
@@ -78,18 +81,20 @@ class QueryComponet extends React.Component {
             index < itemList.length;
             index = index + rowNum
           ) {
-            if (itemList[index].total > max) {
-              max = itemList[index].total;
+            console.log("index", index);
+
+            if (itemList[index].label > maxLabelLength) {
+              maxLabelLength = itemList[index].label;
             }
           }
-
           for (
             let index = startIndex;
             index < itemList.length;
             index = index + rowNum
           ) {
-            itemList[index].total = max;
+            itemList[index].label = maxLabelLength;
           }
+          itemList[i].label = maxLabelLength;
         }
       }
     }
@@ -110,12 +115,12 @@ class QueryComponet extends React.Component {
     //     break;
     //   }
     // }
-    // maxList.map((item, index) => {
-    //   let nodes = queryEle.querySelectorAll(".queryLabel");
-    //   Array.from(nodes).map((node, index) => {
-    //     node.style.width = cloneItemArr[index].label + "px";
-    //   });
-    // });
+    itemList.map((item, index) => {
+      let nodes = queryEle.querySelectorAll(".queryLabel");
+      Array.from(nodes).map((node, index) => {
+        node.style.width = itemList[index].label + "px";
+      });
+    });
   };
 
   renderFields = (qField, index) => {
