@@ -178,19 +178,22 @@ class App extends React.Component {
     };
     return (
       <div className={"app"}>
-        <Query
-          queryConfig={queryConfig}
-          onSearch={(e) => console.log(e)}
-          onReset={(e) => console.log(e)}
-        ></Query>
-        {/* <Grid
+        <div className="mgb24">
+          <Query
+            queryConfig={queryConfig}
+            onSearch={(e) => console.log(e)}
+            onReset={(e) => console.log(e)}
+          ></Query>
+        </div>
+
+        <Grid
           data={{ ...TableData }}
           rowSelection={rowSelection}
           pageChange={(pageNum, pageSize) => {
             console.log({ pageNum, pageSize });
           }}
           batchBtns={batchBtns()}
-        ></Grid> */}
+        ></Grid>
       </div>
     );
   }

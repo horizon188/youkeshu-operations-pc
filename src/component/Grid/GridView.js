@@ -96,10 +96,7 @@ class TableComponent extends React.Component {
     return (
       <div className={"tableComponet"}>
         {/* 表格前的节点 */}
-        <div
-          style={{ display: "flex", justifyContent: "flex-end" }}
-          className="mgb24"
-        >
+        <div className={"beforeNode"}>
           {batchBtns &&
             batchBtns.map((item, index) => {
               return beforeInfo(item, index);

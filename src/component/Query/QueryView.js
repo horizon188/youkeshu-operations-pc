@@ -12,10 +12,6 @@ class QueryComponet extends React.Component {
 
   componentDidMount() {
     this.calLayout();
-
-    // bind(document.getElementById(this.id), (element) => {
-    //   this.calLayout();
-    // });
   }
 
   onFinish = (values) => {
@@ -74,23 +70,26 @@ class QueryComponet extends React.Component {
     if (itemList.length > rowNum) {
       for (let i = 0; i < rowNum; i++) {
         let max = itemList[i].total;
+        let startIndex = i + rowNum;
 
-        for (
-          let index = rowNum;
-          index < itemList.length;
-          index = index + rowNum
-        ) {
-          if (itemList[index].total > max) {
-            max = itemList[index].total;
+        if (startIndex <= itemList.length) {
+          for (
+            let index = startIndex;
+            index < itemList.length;
+            index = index + rowNum
+          ) {
+            if (itemList[index].total > max) {
+              max = itemList[index].total;
+            }
           }
-        }
 
-        for (
-          let index = rowNum;
-          index < itemList.length;
-          index = index + rowNum
-        ) {
-          itemList[index].total = max;
+          for (
+            let index = startIndex;
+            index < itemList.length;
+            index = index + rowNum
+          ) {
+            itemList[index].total = max;
+          }
         }
       }
     }
