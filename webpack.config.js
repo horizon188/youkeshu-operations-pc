@@ -79,7 +79,7 @@ new HappyPack({
         },
       ],
     },
-    devtool: "cheap-module-source-map",
+    // devtool: "cheap-module-source-map",
     plugins: [
       new webpack.HotModuleReplacementPlugin(), // HMR允许在运行时更新各种模块，而无需进行完全刷新
       new HtmlWebPackPlugin({

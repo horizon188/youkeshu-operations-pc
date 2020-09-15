@@ -1,5 +1,6 @@
 import { isEqual, isObject } from "lodash";
-
+import React from "react";
+import Loadable from "react-loadable";
 /**
  * 若emptyList为空则过滤对象中的无效值
  * @param {object} source
@@ -34,4 +35,13 @@ export const isEmpty = function (source) {
     return true;
   }
   return false;
+};
+
+// 按需加载路由
+export const withLoadable = (comp) => {
+  return Loadable({
+    loader: comp,
+    loading: () => null,
+    delay: 0,
+  });
 };
