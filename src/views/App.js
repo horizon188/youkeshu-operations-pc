@@ -1,40 +1,79 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.less";
-import { Tag, Space } from "antd";
+import { Tag, Space, Modal, Form, Input, Button } from "antd";
 import { Grid, Query } from "component";
-import { tableSource } from "./../mock";
+import ModalConponet from "./modal";
 class App extends React.Component {
   constructor(props) {
     super(props);
+    console.log("props", props);
+    this.state = {
+      visible: false,
+      actionType: "",
+    };
   }
-
-  onClick() {
-    this.props.dispatch({
-      type: "INCREMENT",
-    });
-    //   this.props.history.push('/about/')
-  }
+  // 列表勾选
   onSelectInfoChange = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRowKeys, selectedRows);
+    console.log("selectedRowKeys", selectedRowKeys);
+    this.props.dispatch({
+      type: "saveState",
+      payload: { selectedRowKeys },
+    });
   };
+  // 处理分页
+  handlePageChange = (pageNum, pageSize) => {
+    let payload = { pageNum, pageSize };
+    this.props.dispatch({
+      type: "pageChange",
+      payload,
+    });
+  };
+
+  // 列表搜索
+  handleQuery = (values) => {
+    this.props.dispatch({
+      type: "handleQuery",
+      payload: values,
+    });
+  };
+
+  // 列表搜索
+  resetQuery = () => {
+    this.props.dispatch({
+      type: "resetQuery",
+    });
+  };
+
+  showModal = (record, actionType) => {
+    this.props.dispatch({
+      type: "showModal",
+      payload: record,
+    });
+    this.setState({ visible: true, actionType });
+  };
+
   render() {
+    let { visible, actionType } = this.state;
     //查询条件
     const queryConfig = [
       {
         elem_type: "Input",
-        zh_name: "模",
-        en_name: "code",
+        zh_name: "名字",
+        en_name: "name",
       },
       {
         elem_type: "Input",
         zh_name: "模版",
-        en_name: "name",
+        en_name: "name1",
+        extProps: { disabled: true },
       },
       {
         elem_type: "Select",
         zh_name: "类型莫",
         en_name: "msgType",
+        extProps: { disabled: true },
+
         options: [
           {
             value: null,
@@ -44,33 +83,20 @@ class App extends React.Component {
             value: "1",
             label: "短信",
           },
-          {
-            value: "4",
-            label: "微信",
-          },
-          {
-            value: "6",
-            label: "支付宝信息",
-          },
-          {
-            value: "3",
-            label: "APP 站内信",
-          },
-          {
-            value: "5",
-            label: "APP PUSH",
-          },
         ],
       },
       {
         elem_type: "InputNumber",
         zh_name: "更新账号",
         en_name: "updatePerson",
+        extProps: { disabled: true },
       },
       {
         elem_type: "Select",
-        zh_name: "状态哈哈哈",
-        en_name: "messageTemplateStatus",
+        zh_name: "状态",
+        en_name: "status",
+        extProps: { disabled: true },
+
         options: [
           {
             value: null,
@@ -109,32 +135,12 @@ class App extends React.Component {
         key: "address",
       },
       {
-        title: "Tags",
-        key: "tags",
-        dataIndex: "tags",
-        render: (tags) => (
-          <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? "geekblue" : "green";
-              if (tag === "loser") {
-                color = "volcano";
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
-      },
-      {
         title: "Action",
         key: "action",
         render: (text, record) => (
           <Space size="middle">
-            <a>Invite {record.name}</a>
-            <a>Delete</a>
+            <a onClick={() => this.showModal(record, "edit")}>编辑</a>
+            <a onClick={() => this.showModal(record, "detail")}>详情</a>
           </Space>
         ),
       },
@@ -157,23 +163,16 @@ class App extends React.Component {
           type: "primary",
           position: "right",
           // dropdown: true,
-          text: "批量开启",
+          text: "新增",
           isConfirm: true,
           onClick: () => {
-            console.log("dinaji");
+            this.showModal({}, "add");
           },
         },
       ];
     };
-    let TableData = {
-      dataSource: tableSource,
-      columns,
-      pageNum: 1,
-      pageSize: 10,
-      total: 0,
-    };
     const rowSelection = {
-      selectedRowKeys: ["1"],
+      selectedRowKeys: this.props.selectedRowKeys,
       onChange: this.onSelectInfoChange,
     };
     return (
@@ -181,23 +180,42 @@ class App extends React.Component {
         <div className="mgb24">
           <Query
             queryConfig={queryConfig}
-            onSearch={(e) => console.log("sous", e)}
-            onReset={() => console.log("重置")}
+            onSearch={(values) => this.handleQuery(values)}
+            onReset={() => this.resetQuery()}
           ></Query>
         </div>
 
         <Grid
-          data={{ ...TableData }}
+          data={{
+            ...this.props.TableData,
+            dataSource: this.props.showList,
+            columns,
+          }}
           rowSelection={rowSelection}
           pageChange={(pageNum, pageSize) => {
-            console.log({ pageNum, pageSize });
+            this.handlePageChange(pageNum, pageSize);
           }}
           batchBtns={batchBtns()}
         ></Grid>
+        {visible && (
+          <ModalConponet
+            visible={visible}
+            initialValues={this.props.modalParams}
+            onCancel={() => this.setState({ visible: false })}
+            onOk={(values) => {
+              console.log("模态框确认", values);
+            }}
+            actionType={actionType}
+          ></ModalConponet>
+        )}
       </div>
     );
   }
 }
 export default connect((state) => ({
-  number: state.number,
+  TableData: state.TableData,
+  tableSource: state.tableSource,
+  selectedRowKeys: state.selectedRowKeys,
+  showList: state.showList,
+  modalParams: state.modalParams,
 }))(App);

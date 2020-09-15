@@ -6,15 +6,16 @@ import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./antd.css";
 import "./app.less";
-// const About = () => <h2>页面一</h2>;
-// const Users = () => <h2>页面二</h2>;
+console.log("store", store);
+const About = () => <h2>页面一</h2>;
+const Users = () => <h2>页面二</h2>;
 ReactDom.render(
   <Provider store={store}>
     <Router>
       <Switch>
         <Route path="/" exact component={App} />
-        {/* <Route path="/about" component={About} />
-        <Route path="/users" component={Users} /> */}
+        <Route path="/about" component={About} />
+        <Route path="/users" component={Users} />
       </Switch>
     </Router>
   </Provider>,

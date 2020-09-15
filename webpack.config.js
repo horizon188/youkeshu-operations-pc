@@ -45,7 +45,7 @@ new HappyPack({
     },
     module: {
       rules: [
-            // "babel-plugin-transform-object-rest-spread": "^6.26.0",
+        // "babel-plugin-transform-object-rest-spread": "^6.26.0",
         // {
         //   test: /\.(js|jsx)$/, // 匹配.js文件
         //   use: "happypack/loader?id=jsx",
@@ -56,11 +56,11 @@ new HappyPack({
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
           use: {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              presets: ['@babel/preset-env']
-            }
-          }
+              presets: ["@babel/preset-env"],
+            },
+          },
         },
         {
           test: /\.(css|less)$/,

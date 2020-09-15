@@ -129,6 +129,7 @@ class QueryComponet extends React.Component {
             <Input
               style={{ width: "224px" }}
               placeholder={`请选择${zh_name}`}
+              {...extProps}
             />
           </Form.Item>
         );
@@ -157,6 +158,7 @@ class QueryComponet extends React.Component {
               style={{ width: "224px" }}
               placeholder={`请输入${zh_name}`}
               onPressEnter={this.onSearch}
+              {...extProps}
             />
           </Form.Item>
         );

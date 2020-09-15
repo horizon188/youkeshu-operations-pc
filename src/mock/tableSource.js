@@ -3,10 +3,9 @@ export default (function () {
   let result = arr.map((item) => {
     return {
       key: "" + item,
-      name: "John Brown",
+      name: `${item}`,
       age: "" + item,
       address: "New York No. 1 Lake Park",
-      tags: ["nice", "developer"],
     };
   });
   return result;
