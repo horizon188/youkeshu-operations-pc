@@ -3,6 +3,7 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HappyPack = require("happypack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 new HappyPack({
   id: "jsx",
@@ -65,9 +66,7 @@ new HappyPack({
         {
           test: /\.(css|less)$/,
           use: [
-            {
-              loader: "style-loader",
-            },
+            MiniCssExtractPlugin.loader,
             {
               loader: "css-loader",
             },
@@ -79,7 +78,7 @@ new HappyPack({
         },
       ],
     },
-    // devtool: "cheap-module-source-map",
+    devtool: "cheap-module-source-map",
     plugins: [
       new webpack.HotModuleReplacementPlugin(), // HMR允许在运行时更新各种模块，而无需进行完全刷新
       new HtmlWebPackPlugin({
@@ -92,6 +91,10 @@ new HappyPack({
       new webpack.DllReferencePlugin({
         context: __dirname,
         manifest: require("./dll/manifest.json"),
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash:16].css",
+        chunkFilename: "[name].[contenthash:16].css",
       }),
     ],
     resolve: {
