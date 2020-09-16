@@ -4,6 +4,12 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const HappyPack = require("happypack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// css压缩
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const ParallelUglifyPlugin = require("webpack-parallel-uglify-plugin");
+// var CompressionWebpackPlugin = require("compression-webpack-plugin");
 
 new HappyPack({
   id: "jsx",
@@ -38,11 +44,12 @@ new HappyPack({
   ],
 }),
   (module.exports = {
-    mode: "development",
+    mode: "production",
     entry: "./app.js", // 入口文件
     output: {
       path: path.resolve(__dirname, "dist"), // 定义输出目录
       filename: "my-first-webpack.bundle.js", // 定义输出文件名称
+      chunkFilename: "[name].[chunkhash:8].js",
     },
     module: {
       rules: [
@@ -67,6 +74,9 @@ new HappyPack({
           test: /\.(css|less)$/,
           use: [
             MiniCssExtractPlugin.loader,
+            // {
+            //   loader: "style-loader",
+            // },
             {
               loader: "css-loader",
             },
@@ -78,12 +88,17 @@ new HappyPack({
         },
       ],
     },
-    devtool: "cheap-module-source-map",
+    // devtool: "cheap-module-source-map",
     plugins: [
       new webpack.HotModuleReplacementPlugin(), // HMR允许在运行时更新各种模块，而无需进行完全刷新
       new HtmlWebPackPlugin({
         template: "./index.html",
         filename: path.resolve(__dirname, "dist/index.html"),
+        minify: {
+          removeComments: true, //去注释
+          collapseWhitespace: true, //压缩空格
+          removeAttributeQuotes: true, //去除属性引用
+        },
       }),
       new CopyWebpackPlugin(
         { patterns: [{ from: "./dll", to: "dll" }] } // 需要拷贝的目录或者路径通配符
@@ -96,7 +111,23 @@ new HappyPack({
         filename: "[name].[contenthash:16].css",
         chunkFilename: "[name].[contenthash:16].css",
       }),
+      new OptimizeCssAssetsPlugin(),
     ],
+    // optimization: {
+    //   minimizer: [
+    //     // 压缩插件
+    //     new ParallelUglifyPlugin({
+    //       cacheDir: ".cache/",
+    //       uglifyJS: {
+    //         output: {
+    //           comments: false, //去掉注释
+    //         },
+    //         warnings: false,
+    //         compress: {},
+    //       },
+    //     }),
+    //   ],
+    // },
     resolve: {
       alias: {
         component: path.join(__dirname, "src/component"),

@@ -3,7 +3,6 @@ import React from "react";
 import store from "./src/store";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import "./antd.css";
 import "./app.less";
 import { withLoadable } from "./src/utils";
 const App = withLoadable(() => import("./src/views/App"));
