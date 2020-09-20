@@ -44,7 +44,7 @@ new HappyPack({
   ],
 }),
   (module.exports = {
-    mode: "production",
+    mode: "development",
     entry: "./app.js", // 入口文件
     output: {
       path: path.resolve(__dirname, "dist"), // 定义输出目录
@@ -85,6 +85,22 @@ new HappyPack({
             },
           ],
           // include: path.resolve(__dirname, 'node_modules'),
+        },
+        {
+          test: /\.(png|jpg|gif|md)$/,
+          use: ["url-loader?limit=10000&name=[md5:hash:base64:10].[ext]"],
+        },
+        {
+          test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+          use: ["url-loader?limit=10000&mimetype=images/svg+xml"],
+        },
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: "url-loader?limit=10000&mimetype=application/font-woff",
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: "url-loader",
         },
       ],
     },
@@ -131,6 +147,7 @@ new HappyPack({
     resolve: {
       alias: {
         component: path.join(__dirname, "src/component"),
+        assets: path.join(__dirname, "src/assets"),
       },
       modules: [path.join(__dirname, "src"), "node_modules"],
       extensions: [".js", ".jsx", ".less", ".css"],

@@ -23,3 +23,13 @@ yarn-debug.log*
 yarn-error.log*
 dll/manifest.json
 dll/vendor.js
+src/assets/css/fontIcon/demo.css
+src/assets/css/fontIcon/demo_index.html
+src/assets/css/fontIcon/iconfont.css
+src/assets/css/fontIcon/iconfont.eot
+src/assets/css/fontIcon/iconfont.js
+src/assets/css/fontIcon/iconfont.json
+src/assets/css/fontIcon/iconfont.svg
+src/assets/css/fontIcon/iconfont.ttf
+src/assets/css/fontIcon/iconfont.woff
+src/assets/css/fontIcon/iconfont.woff2

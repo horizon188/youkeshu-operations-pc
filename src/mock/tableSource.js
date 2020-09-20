@@ -3,7 +3,7 @@ export default (function () {
   let result = arr.map((item) => {
     return {
       key: "" + item,
-      name: `${item}`,
+      name: "lxh",
       age: "" + item,
       address: "New York No. 1 Lake Park",
     };

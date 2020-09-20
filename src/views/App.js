@@ -4,15 +4,31 @@ import "./App.less";
 import { Tag, Space, Modal, Form, Input, Button } from "antd";
 import { Grid, Query } from "component";
 import ModalConponet from "./modal";
+import "./../assets/fontIcon/iconfont";
+import "./../assets/fontIcon/iconfont.css";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    console.log("props", props);
     this.state = {
       visible: false,
       actionType: "",
     };
+    console.log(
+      setTimeout(function () {
+        console.log("3");
+      }, 1000),
+
+      new Promise(function (resolve) {
+        console.log("1");
+        resolve();
+      }).then(function () {
+        console.log("444");
+      }),
+
+      console.log("2")
+    );
   }
+
   // 列表勾选
   onSelectInfoChange = (selectedRowKeys, selectedRows) => {
     console.log("selectedRowKeys", selectedRowKeys);
@@ -53,10 +69,9 @@ class App extends React.Component {
     this.setState({ visible: true, actionType });
   };
 
-  render() {
-    let { visible, actionType } = this.state;
-    //查询条件
-    const queryConfig = [
+  //查询条件
+  get queryConfig() {
+    return [
       {
         elem_type: "Input",
         zh_name: "名字",
@@ -117,22 +132,59 @@ class App extends React.Component {
         ],
       },
     ];
-    const columns = [
+  }
+
+  // 列表上的按钮
+  get beforeTable() {
+    return [
+      {
+        actionType: "action",
+        type: "primary",
+        position: "left",
+        dropdown: true,
+        text: "批量开启",
+        isConfirm: true,
+        onClick: () => {
+          console.log("dinaji");
+        },
+      },
+      {
+        actionType: "action",
+        type: "primary",
+        position: "right",
+        // dropdown: true,
+        text: "新增",
+        isConfirm: true,
+        onClick: () => {
+          this.showModal({}, "add");
+        },
+      },
+    ];
+  }
+
+  get columns() {
+    return [
       {
         title: "Name",
-        dataIndex: "name",
+        dataIndex: ["xx", "yy", "www"],
         key: "name",
-        render: (text) => <a>{text}</a>,
+        render: (text) => <i class="iconfont">&#xe69c;</i>,
       },
       {
         title: "Age",
         dataIndex: "age",
         key: "age",
+        render: (text) => <i class="iconfont iconxianxinghongliu"></i>,
       },
       {
         title: "Address",
         dataIndex: "address",
         key: "address",
+        render: (text) => (
+          <svg class="icon" aria-hidden="true">
+            <use xlinkHref="#iconxianxingsuosuoshu"></use>
+          </svg>
+        ),
       },
       {
         title: "Action",
@@ -145,32 +197,10 @@ class App extends React.Component {
         ),
       },
     ];
-    const batchBtns = () => {
-      return [
-        {
-          actionType: "action",
-          type: "primary",
-          position: "left",
-          dropdown: true,
-          text: "批量开启",
-          isConfirm: true,
-          onClick: () => {
-            console.log("dinaji");
-          },
-        },
-        {
-          actionType: "action",
-          type: "primary",
-          position: "right",
-          // dropdown: true,
-          text: "新增",
-          isConfirm: true,
-          onClick: () => {
-            this.showModal({}, "add");
-          },
-        },
-      ];
-    };
+  }
+
+  render() {
+    let { visible, actionType } = this.state;
     const rowSelection = {
       selectedRowKeys: this.props.selectedRowKeys,
       onChange: this.onSelectInfoChange,
@@ -179,7 +209,7 @@ class App extends React.Component {
       <div className={"app"}>
         <div className="mgb24">
           <Query
-            queryConfig={queryConfig}
+            queryConfig={this.queryConfig}
             onSearch={(values) => this.handleQuery(values)}
             onReset={() => this.resetQuery()}
           ></Query>
@@ -189,13 +219,13 @@ class App extends React.Component {
           data={{
             ...this.props.TableData,
             dataSource: this.props.showList,
-            columns,
+            columns: this.columns,
           }}
           rowSelection={rowSelection}
           pageChange={(pageNum, pageSize) => {
             this.handlePageChange(pageNum, pageSize);
           }}
-          batchBtns={batchBtns()}
+          batchBtns={this.beforeTable}
         ></Grid>
         {visible && (
           <ModalConponet
