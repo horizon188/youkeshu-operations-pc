@@ -207,6 +207,7 @@ class App extends React.Component {
     };
     return (
       <div className={styles["app"]}>
+        <div className={styles["div2"]}>你好。这是一个 DIV 元素。</div>
         <div className="mgb24">
           <Query
             queryConfig={this.queryConfig}
