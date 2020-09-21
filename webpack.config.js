@@ -79,12 +79,15 @@ new HappyPack({
             // },
             {
               loader: "css-loader",
+              options: {
+                modules: true,
+                // localIdentName: "[path][name]__[local]--[hash:base64:5]",
+              },
             },
             {
               loader: "less-loader",
             },
           ],
-          // include: path.resolve(__dirname, 'node_modules'),
         },
         {
           test: /\.(png|jpg|gif|md)$/,

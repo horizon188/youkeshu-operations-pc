@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./App.less";
+import styles from "./App.less";
 import { Tag, Space, Modal, Form, Input, Button } from "antd";
 import { Grid, Query } from "component";
 import ModalConponet from "./modal";
@@ -206,7 +206,7 @@ class App extends React.Component {
       onChange: this.onSelectInfoChange,
     };
     return (
-      <div className={"app"}>
+      <div className={styles["app"]}>
         <div className="mgb24">
           <Query
             queryConfig={this.queryConfig}

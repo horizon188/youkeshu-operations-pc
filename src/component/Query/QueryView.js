@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./QueryLess.less";
+// import "./QueryLess.less";
 import { Form, InputNumber, Button, Input, Row, Select } from "antd";
 import { get } from "lodash";
-
+import styles from "./QueryLess.less";
+console.log("styles", styles);
 class QueryComponet extends React.Component {
   constructor(props) {
     super(props);
@@ -165,9 +166,9 @@ class QueryComponet extends React.Component {
         break;
     }
     return (
-      <div className="queryItem" key={en_name}>
-        <div className="queryLabel">{zh_name}</div>
-        <div className="queryContent">{content}</div>
+      <div className={styles["queryItem"]} key={en_name}>
+        <div className={styles["queryLabel"]}>{zh_name}</div>
+        <div className={styles["queryContent"]}>{content}</div>
         {queryConfig && queryConfig.length === index + 1 && (
           <div style={{ display: "flex" }}>
             <Button type="primary" className="mgr24 mgl24" htmlType="submit">
@@ -184,9 +185,13 @@ class QueryComponet extends React.Component {
     //渲染表单项
     let { queryConfig } = this.props;
     return (
-      <div className={"query"} id={this.id}>
-        <Form layout={"inline"} onFinish={this.onFinish} ref={this.formRef}>
-          <div className={"queryForm"}>
+      <div className={styles["query"]} id={this.id}>
+        <Form
+          layout={styles["inline"]}
+          onFinish={this.onFinish}
+          ref={this.formRef}
+        >
+          <div className={styles["queryForm"]}>
             {queryConfig &&
               queryConfig.map((item, index) => {
                 return this.renderFields(item, index);

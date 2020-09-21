@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import "./GridLess.less";
 import { Table, Button, Menu, Dropdown } from "antd";
 import { DownOutlined } from "@ant-design/icons";
+import styles from "./GridLess.less";
+
 //分页配置
 const pageConfig = {
   pageSizeOptions: ["10", "20", "30", "40"],
@@ -94,9 +95,9 @@ class TableComponent extends React.Component {
       }
     };
     return (
-      <div className={"tableComponet"}>
+      <div className={styles["tableComponet"]}>
         {/* 表格前的节点 */}
-        <div className={"beforeNode"}>
+        <div className={styles["beforeNode"]}>
           {batchBtns &&
             batchBtns.map((item, index) => {
               return beforeInfo(item, index);
