@@ -33,8 +33,11 @@ class QueryComponet extends React.Component {
       return this.itemList;
     }
     let queryEle = document.getElementById(this.id);
+    console.log('111111',queryEle);
     let labelNodes = queryEle.querySelectorAll(".queryLabel");
     let contentNodes = queryEle.querySelectorAll(".queryContent");
+    console.log('111111',labelNodes,contentNodes);
+
     let labelWidths = Array.from(labelNodes).map((o) => o.offsetWidth);
     let contentWidths = Array.from(contentNodes).map((o) => o.offsetWidth);
     let itemList = [];
@@ -90,6 +93,7 @@ class QueryComponet extends React.Component {
   calLayout = () => {
     //获取所有的宽度
     let queryEle = document.getElementById(this.id);
+    console.log('queryEle',queryEle);
     let queryWidth = queryEle.offsetWidth;
     this.queryWidth = queryWidth;
     let itemList = this.getInitValue();
@@ -166,7 +170,7 @@ class QueryComponet extends React.Component {
         break;
     }
     return (
-      <div className={styles["queryItem"]} key={en_name}>
+      <div className={styles["queryItem"]} key={en_name} id={this.id}>
         <div className={styles["queryLabel"]}>{zh_name}</div>
         <div className={styles["queryContent"]}>{content}</div>
         {queryConfig && queryConfig.length === index + 1 && (
@@ -184,8 +188,9 @@ class QueryComponet extends React.Component {
   render() {
     //渲染表单项
     let { queryConfig } = this.props;
+    console.log('queryConfig',queryConfig);
     return (
-      <div className={styles["query"]} id={this.id}>
+      <div className={styles["query"]} >
         <Form
           layout={styles["inline"]}
           onFinish={this.onFinish}

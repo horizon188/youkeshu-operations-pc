@@ -4,8 +4,8 @@ import styles from "./App.less";
 import { Tag, Space, Modal, Form, Input, Button } from "antd";
 import { Grid, Query } from "component";
 import ModalConponet from "./modal";
-import "./../assets/fontIcon/iconfont";
-import "./../assets/fontIcon/iconfont.css";
+// import "./../assets/fontIcon/iconfont";
+// import "./../assets/fontIcon/iconfont.css";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -180,11 +180,6 @@ class App extends React.Component {
         title: "Address",
         dataIndex: "address",
         key: "address",
-        render: (text) => (
-          <svg class="icon" aria-hidden="true">
-            <use xlinkHref="#iconxianxingsuosuoshu"></use>
-          </svg>
-        ),
       },
       {
         title: "Action",
@@ -207,7 +202,7 @@ class App extends React.Component {
     };
     return (
       <div className={styles["app"]}>
-        <div className={styles["div2"]}>你好。这是一个 DIV 元素。</div>
+        {/* <div className={styles["div2"]}>你好。这是一个 DIV 元素。</div> */}
         <div className="mgb24">
           <Query
             queryConfig={this.queryConfig}

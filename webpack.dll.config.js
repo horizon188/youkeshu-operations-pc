@@ -9,7 +9,6 @@ module.exports = {
       "react-router",
       "react-router-dom",
       "lodash",
-      "antd",
     ],
   },
   output: {
