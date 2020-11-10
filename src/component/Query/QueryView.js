@@ -33,11 +33,9 @@ class QueryComponet extends React.Component {
       return this.itemList;
     }
     let queryEle = document.getElementById(this.id);
-    console.log('111111',queryEle);
-    let labelNodes = queryEle.querySelectorAll(".queryLabel");
-    let contentNodes = queryEle.querySelectorAll(".queryContent");
-    console.log('111111',labelNodes,contentNodes);
-
+    let labelNodes = document.querySelectorAll(`.${styles["queryLabel"]}`);
+    let contentNodes = document.querySelectorAll(`.${styles["queryContent"]}`);
+    console.log('xxxxxx',labelNodes,contentNodes);
     let labelWidths = Array.from(labelNodes).map((o) => o.offsetWidth);
     let contentWidths = Array.from(contentNodes).map((o) => o.offsetWidth);
     let itemList = [];

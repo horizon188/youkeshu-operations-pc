@@ -80,9 +80,10 @@ new HappyPack({
             {
               loader: "css-loader",
               options: {
-                modules: {
-                  localIdentName: "[path][name]__[local]--[hash:base64:5]",
-                },
+                modules:false,
+                // modules: {
+                //   localIdentName: "[path][name]__[local]--[hash:base64:5]",
+                // },
                 // importLoaders: 1,
               },
             },
