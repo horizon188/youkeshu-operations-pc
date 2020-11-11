@@ -80,7 +80,7 @@ new HappyPack({
             {
               loader: "css-loader",
               options: {
-                modules:false,
+                modules: false,
                 // modules: {
                 //   localIdentName: "[path][name]__[local]--[hash:base64:5]",
                 // },
@@ -155,6 +155,8 @@ new HappyPack({
       alias: {
         component: path.join(__dirname, "src/component"),
         assets: path.join(__dirname, "src/assets"),
+        router: path.join(__dirname, "src/router"),
+        pages: path.join(__dirname, "src/pages"),
       },
       modules: [path.join(__dirname, "src"), "node_modules"],
       extensions: [".js", ".jsx", ".less", ".css"],

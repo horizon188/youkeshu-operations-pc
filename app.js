@@ -4,6 +4,8 @@ import store from "./src/store";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./app.less";
+import App from "component/App/AppView";
+
 // import "assets/css/fontIcon/iconfont.css";
 import { withLoadable } from "./src/utils";
 const App = withLoadable(() => import("./src/views/App"));

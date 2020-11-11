@@ -1,0 +1,25 @@
+@import '~assets/css/common.less';
+
+.yx_layout {
+  :global {
+    .yx_sider_bar {
+      width: @sider_width !important;
+      flex: 0 0 @sider_width !important;
+      min-width: @sider_width !important;
+      max-width: @sider_width !important;
+    }
+    .content_box {
+      @height: (60+41+26) * 1px;
+      width: 100%;
+      overflow-y: scroll;
+      padding: 16px;
+      height: calc(100vh - @height);
+      background: rgba(0, 137, 255, 0.04) !important;
+      .content_layout {
+        min-height: calc(100vh - @height -16px -16px);
+        // background: #fff;
+        padding: 0;
+      }
+    }
+  }
+}
