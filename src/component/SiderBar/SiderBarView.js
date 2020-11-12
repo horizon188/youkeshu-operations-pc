@@ -1,5 +1,5 @@
 import Config from 'config/Config'
-import { YxAction } from 'yx-widget'
+// import { YxAction } from 'yx-widget'
 import AppStore from '../App/AppStore'
 import { DB } from '@utils/DB'
 import { get, isArray } from 'lodash'
@@ -16,7 +16,7 @@ const CDN_BASE = Config.CDN_BASE
 
 import styles from './SiderBarLess.less'
 //自定义滚动条（解决ie、firefox自带滚动条难看的问题）
-import { Scrollbars } from 'widget/ScrollBar/index'
+// import { Scrollbars } from 'widget/ScrollBar/index'
 // 异步请求
 import request from 'utils/request'
 
@@ -63,7 +63,7 @@ const renderMenuItem = (menuArray, n = 0) => {
   })
 }
 @inject('AppStore')
-@withRouter // 在组件中可通过this.props.history.push跳转路由
+// @withRouter // 在组件中可通过this.props.history.push跳转路由
 @observer
 class SiderBarView extends Component {
   constructor(props) {
@@ -231,9 +231,9 @@ class SiderBarView extends Component {
         <div className="menuWrap">
         <div className="folding">
         <div className="folding" onClick={this.inlineCollapsed}>
-            <YxAction styleType="icon" message={false}
+            {/* <YxAction styleType="icon" message={false}
                 iconFont type={this.state.inlineCollapsed == true ? 'menu-unfold' : 'menu-fold'}
-              onClick={this.inlineCollapsed} />
+              onClick={this.inlineCollapsed} /> */}
           </div>
           </div>
           <div className="searchBlock">
@@ -241,13 +241,13 @@ class SiderBarView extends Component {
           </div>
           <div className="menuCont">
             {/*自定义滚动条组件*/}
-            <Scrollbars
+            {/* <Scrollbars
               ref={e => {
                 this.scrollbar = e
               }}
               renderTrackVertical={props => <div {...props} className="trackVertical" />}
               renderThumbVertical={props => <div {...props} className="thumbVertical" />}
-            >
+            > */}
               {/* 左侧菜单列表 */}
               <Menu
                 theme="dark"
@@ -264,7 +264,7 @@ class SiderBarView extends Component {
               >
                 {menuArray}
               </Menu>
-            </Scrollbars>
+            {/* </Scrollbars> */}
           </div>
         </div>
       </Sider>

@@ -35,7 +35,6 @@ class QueryComponet extends React.Component {
     let queryEle = document.getElementById(this.id);
     let labelNodes = document.querySelectorAll(`.${styles["queryLabel"]}`);
     let contentNodes = document.querySelectorAll(`.${styles["queryContent"]}`);
-    console.log('xxxxxx',labelNodes,contentNodes);
     let labelWidths = Array.from(labelNodes).map((o) => o.offsetWidth);
     let contentWidths = Array.from(contentNodes).map((o) => o.offsetWidth);
     let itemList = [];
@@ -54,6 +53,7 @@ class QueryComponet extends React.Component {
   // 动态设置label大小
   setLabelLength = (itemList, rowNum) => {
     let queryEle = document.getElementById(this.id);
+    console.log('rowNum',rowNum);
     if (itemList.length > rowNum) {
       for (let i = 0; i < rowNum; i++) {
         let maxLabelLength = itemList[i].label;
@@ -81,7 +81,8 @@ class QueryComponet extends React.Component {
       }
     }
     itemList.map((item, index) => {
-      let nodes = queryEle.querySelectorAll(".queryLabel");
+      let nodes = document.querySelectorAll(`.${styles["queryLabel"]}`)
+      console.log('nodes',nodes);
       Array.from(nodes).map((node, index) => {
         node.style.width = itemList[index].label + "px";
       });
@@ -98,14 +99,15 @@ class QueryComponet extends React.Component {
     // 一行多长
     let rowLength = 24; // 内边距24px
     // 一行放几个
-    let rowNum = 0;
+    let rowNum = 2;
+    console.log('itemList',itemList);
     try {
       itemList.map((item, index) => {
         rowLength = rowLength + item.total + 24;
-        if (queryWidth < rowLength) {
-          rowNum = index;
-          throw `一行多少个${rowNum}`;
-        }
+        // if (queryWidth < rowLength) {
+        //   rowNum = index;
+        //   throw `一行多少个${rowNum}`;
+        // }
       });
     } catch (error) {
       console.log(error);

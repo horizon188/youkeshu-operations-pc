@@ -1,5 +1,5 @@
 // import LoginMod from 'pages/login/loginMod';
-import AppStore from 'widget/App/AppStore';
+// import AppStore from 'widget/App/AppStore';
 // 地图组件
 import MapDemoMod from 'pages/Demo/Map/MapDemoMod';
 // 用户列表

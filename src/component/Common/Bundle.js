@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 
-@withRouter
+// @withRouter
 class Bundle extends Component {
   state = {
     // short for "module" but that's a keyword in js, so "mod"

@@ -9,7 +9,7 @@ import {
   Link,
 } from "react-router-dom";
 
-import { hot } from "react-hot-loader";
+// import { hot } from "react-hot-loader";
 
 // 公共样式
 import "assets/css/common.less";

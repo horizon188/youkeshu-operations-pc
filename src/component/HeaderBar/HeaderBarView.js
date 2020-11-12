@@ -8,7 +8,7 @@ import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 // Cookie对象
 import Cookie from 'js-cookie'
-import { YxInput } from "yx-widget";
+// import { YxInput } from "yx-widget";
 
 // 引入antd的组件
 import { Menu, Icon, Dropdown, Select, message, Row, Col, Form } from 'antd'
@@ -21,11 +21,11 @@ import styles from './HeaderBarLess.less'
 const CDN_BASE = config.CDN_BASE || ''
 
 // 引入组织机构组件
-import OrgList from 'widget/OrgList/OrgListView'
-// 引入我的消息组件
-import MsgList from 'widget/MsgList/MsgListView'
+// import OrgList from 'widget/OrgList/OrgListView'
+// // 引入我的消息组件
+// import MsgList from 'widget/MsgList/MsgListView'
 // 引入修改密码对话框
-import UpdatePwd from 'widget/UpdatePwd/UpdatePwdView'
+// import UpdatePwd from 'widget/UpdatePwd/UpdatePwdView'
 // 样式管理
 import cx from 'classnames'
 // Cookie localStorage等的存储管理
@@ -35,7 +35,7 @@ import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import mod from './HeaderBarStore'
 
-@withRouter
+// @withRouter
 @observer
 class HeaderBarView extends Component {
   constructor(props, context) {
@@ -185,22 +185,23 @@ class HeaderBarView extends Component {
       <div className={styles.tophead}>
         {/* 弹出的修改密码对话框 - 默认隐藏 */}
         {this.state.updatePwdFlag && (
-          <UpdatePwd
-            titleName="修改密码"
-            visible={this.state.updatePwdFlag}
-            onClose={e => {
-              this.hidePwdDlg(e)
-            }}
-            onOk={e => {
-              this.hidePwdDlg(e, 'onOk')
-            }}
-          />
+          修改密码
+          // <UpdatePwd
+          //   titleName="修改密码"
+          //   visible={this.state.updatePwdFlag}
+          //   onClose={e => {
+          //     this.hidePwdDlg(e)
+          //   }}
+          //   onOk={e => {
+          //     this.hidePwdDlg(e, 'onOk')
+          //   }}
+          // />
         )}
         <div>
           <div className='headRight' id="routerApp_headRight">
             <div className='table'>
               <div className={'instan'}>
-                <YxInput.YxSelect
+                {/* <YxInput.YxSelect
                   form={this.props.form}
                   id={'instanceId'}
                   inputParam={{ style: { width: '224px' } }}
@@ -209,7 +210,7 @@ class HeaderBarView extends Component {
                   data={toJS(this.stores.state.instanceList)}
                   placeholder={"请选择跳转的平台"}
                   change={(value, rec, res, record) => this.stores.jumpApp(value, rec, res, record)}
-                />
+                /> */}
               </div>
               
               <div className='cell'>

@@ -2,10 +2,10 @@ import React from "react";
 import extraRouters from "./extraRouters";
 import { createBundle } from "component/Common";
 import { Route, Switch } from "react-router-dom";
-import CacheRoute, {
-  CacheSwitch,
-  getCachingKeys,
-} from "react-router-cache-route";
+// import CacheRoute, {
+//   CacheSwitch,
+//   getCachingKeys,
+// } from "react-router-cache-route";
 
 import NotFound from "component/NotFound/NotFoundView";
 //---ROUTER_IMPORT---
@@ -20,7 +20,7 @@ const routerGenerator = function () {
 
 const getRouter = (_) => (
   <div>
-    <CacheSwitch>
+    <Switch>
       {routerGenerator().map((route, idx) => {
         const baseParam = {
           key: "route_" + idx,
@@ -30,7 +30,7 @@ const getRouter = (_) => (
         <Route {...baseParam} component={route.component()} />;
       })}
       <Route component={createBundle(NotFound)} />
-    </CacheSwitch>
+    </Switch>
   </div>
 );
 

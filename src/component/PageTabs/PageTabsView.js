@@ -29,7 +29,7 @@ const getTitleByPathname = (pathname) => {
 }
 */
 
-@withRouter
+// @withRouter
 @inject("AppStore")
 // 将组件设置为响应式组件，成为观察者，以便响应被观察数据的变化
 @observer

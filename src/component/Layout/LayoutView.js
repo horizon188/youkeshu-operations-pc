@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { Layout, Menu, Icon } from "antd";
 // 代码热更新插件
-import { hot } from "react-hot-loader";
+// import { hot } from "react-hot-loader";
 import { getRouter } from "router";
 
 import SiderBar from "component/SiderBar/SiderBarView";
@@ -19,7 +19,7 @@ const { Header, Footer, Content } = Layout;
 import PageTabs from "component/PageTabs/PageTabsView";
 import { message } from "antd";
 
-@withRouter
+// @withRouter
 class LayoutView extends Component {
   constructor(props) {
     super(props);
