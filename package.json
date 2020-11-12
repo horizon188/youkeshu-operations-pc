@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specopy-webpack-pluginified\" && exit 1",
     "build-dll": "webpack -p --display-error-details --progress --colors --config webpack.dll.config.js",
-    "dev": "npm run clean && npm run build-dll &&  webpack-dev-server --config webpack.config.js --open --color --progress",
+    "dev": "npm run clean && npm run build-dll && cross-env-shell NODE_OPTIONS=--max_old_space_size=4096 LANGUAGES_ENV=zhCN ENV=loc NODE_ENV=development  webpack-dev-server --config webpack.config.js --open --color --progress",
     "clean": "rimraf dist/*"
   },
   "author": "",
@@ -60,5 +60,13 @@
   "sideEffects": [
     "*.css",
     "*.less"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
   ]
 }

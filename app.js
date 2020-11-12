@@ -4,12 +4,10 @@ import store from "./src/store";
 import { Provider } from "react-redux";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./app.less";
-import App from "component/App/AppView";
 
-// import "assets/css/fontIcon/iconfont.css";
 import { withLoadable } from "./src/utils";
-const App = withLoadable(() => import("./src/views/App"));
-const Hooks = withLoadable(() => import("./src/views/hooks"));
+const App = withLoadable(() => import("./src/component/App/AppView"));
+// const Hooks = withLoadable(() => import("./src/views/hooks"));
 const About = () => <h2>页面一</h2>;
 const Users = () => <h2>页面二</h2>;
 ReactDom.render(
@@ -17,7 +15,7 @@ ReactDom.render(
     <Router>
       <Switch>
         <Route path="/" exact component={App} />
-        <Route path="/Hooks" component={Hooks} />
+        {/* <Route path="/Hooks" component={Hooks} /> */}
         <Route path="/users" component={Users} />
       </Switch>
     </Router>
