@@ -3,7 +3,7 @@ import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import "./app.less";
 
-import { withLoadable } from "./src/utils";
+// import { withLoadable } from "./src/utils";
 // const App = withLoadable(() => import("./src/component/App/AppView"));
 // const Hooks = withLoadable(() => import("./src/views/hooks"));
 const About = () => <h2>页面一</h2>;
