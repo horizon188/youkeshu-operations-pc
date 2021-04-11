@@ -6,7 +6,7 @@ import "./app.less";
 
 // const Hooks = withLoadable(() => import("./src/views/hooks"));
 const About = () => <h2>页面一</h2>;
-const Users = () => <h2>页面二11333</h2>;
+const Users = () => <h2>页面二11333,会突然想改</h2>;
 ReactDom.render(
   <Router>
     <Switch>
