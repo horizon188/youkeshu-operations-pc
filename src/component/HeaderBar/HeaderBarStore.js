@@ -1,14 +1,13 @@
 // lodash遍历对象的key键
 import { get, keys, filter } from 'lodash'
 // mobx的公共方法
-import { observable, action, useStrict, runInAction, autorun,computed } from 'mobx';
+import { observable, action, runInAction, autorun, computed } from 'mobx';
 // 请求路由配置项
-import {  getInstanceList, jumpApp } from './HeaderBarServ';
+import { getInstanceList, jumpApp } from './HeaderBarServ';
 import Config from 'config/Config'
 import Utils from 'utils';
 
 // 严格模式
-useStrict(true);
 
 class HeaderBarStore {
   // 监视状态
@@ -23,7 +22,7 @@ class HeaderBarStore {
   };
 
   // 构造函数
-  constructor() { 
+  constructor() {
 
   };
 
@@ -61,7 +60,7 @@ class HeaderBarStore {
       const { data, resultCode, resultMsg } = await jumpApp(id);
       if (resultCode + '' === '0') {
         let { token, userId, userName } = data
-        if (''+hostName.indexOf('iservice') !== '-1') {
+        if ('' + hostName.indexOf('iservice') !== '-1') {
           hostName = hostName + '/ty-iservice-operation-web-pc'
           window.open(`http://${hostName}/#/isrv/index/index?token=${token}&userId=${userId}&userName=${userName}`)
         } else {

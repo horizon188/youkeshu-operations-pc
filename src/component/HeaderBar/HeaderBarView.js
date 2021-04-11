@@ -11,7 +11,7 @@ import Cookie from 'js-cookie'
 // import { YxInput } from "yx-widget";
 
 // 引入antd的组件
-import { Menu, Icon, Dropdown, Select, message, Row, Col, Form } from 'antd'
+import { Menu, Dropdown, Select, message, Row, Col, Form } from 'antd'
 // 站点配置
 import config from 'config/Config'
 // 加载当前组件样式
@@ -46,7 +46,7 @@ class HeaderBarView extends Component {
     }
   }
 
-  componentDidMount() { 
+  componentDidMount() {
     this.stores.getInstanceList()
   }
 
@@ -55,10 +55,10 @@ class HeaderBarView extends Component {
     return this.state.updatePwdFlag === nextState.updatePwdFlag
   }
 
-	/**
-	 * 登出
-	 *
-	 */
+  /**
+   * 登出
+   *
+   */
   doLogout = async () => {
     let { resultCode, resultMsg } = await delCacheUser()
     if (resultCode + '' !== '0') {
@@ -99,11 +99,11 @@ class HeaderBarView extends Component {
     }
   }
 
-	/**
-	 * 下拉菜单点击事件
-	 *
-	 * @param {*} e
-	 */
+  /**
+   * 下拉菜单点击事件
+   *
+   * @param {*} e
+   */
   handleClickMenu = e => {
     const dict = {
       logout: this.doLogout,
@@ -170,7 +170,7 @@ class HeaderBarView extends Component {
         >
           <a className="ant-dropdown-link" href="#" style={{ display: 'inline-block' }}>
             <span className='mg1'>{Cookie.get(config.cookie.user_name) || ''}</span>
-            <Icon type="down" />
+            {/* <Icon type="down" /> */}
           </a>
         </Dropdown>
       </div>
@@ -212,7 +212,7 @@ class HeaderBarView extends Component {
                   change={(value, rec, res, record) => this.stores.jumpApp(value, rec, res, record)}
                 /> */}
               </div>
-              
+
               <div className='cell'>
                 {this.renderUserInfo()}
               </div>

@@ -1,6 +1,6 @@
 import { parse } from 'qs'
 import Moment from 'moment'
-import localDB from './DB'
+import * as  localDB from './DB'
 import { isArray, pick, map, mergeWith, get as lodashGet, isEqual, isObject, set, isFunction } from 'lodash'
 import { func } from 'prop-types';
 export const getQueryString = function (name) {
@@ -488,8 +488,8 @@ export const getPath = function (path, param) {
 
 //获取页面路径
 export const getPathName = function (path, param) {
-  let arr = window.location.hash.split('?');
-  return arr[0].replace('#', '');
+	let arr = window.location.hash.split('?');
+	return arr[0].replace('#', '');
 }
 
 /**
@@ -896,17 +896,17 @@ export const treeFilter = function (tree, statusFlag) {
 // 对象中某个属性值合计值
 export const objSum = (data, field) => {
 	const sumData = data.map(item => item[field] || 0);
-  
-	return sumData.reduce((total, num) => (total*1000 + num*1000)/1000, 0)
+
+	return sumData.reduce((total, num) => (total * 1000 + num * 1000) / 1000, 0)
 }
 
 // 两个日期之间有多少天
 export const getDaysBetween = (dateString1, dateString2) => {
-  var startDate = Date.parse(dateString1);
-  var endDate = Date.parse(dateString2);
-  var days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
-  // alert(days);
-  return days;
+	var startDate = Date.parse(dateString1);
+	var endDate = Date.parse(dateString2);
+	var days = (endDate - startDate) / (1 * 24 * 60 * 60 * 1000);
+	// alert(days);
+	return days;
 }
 
 // 判断停订时间段有没有，在就返回true,不在返回false
@@ -916,13 +916,13 @@ export const getDaysBetween = (dateString1, dateString2) => {
   endDateStr: String 结束日期
 */
 export const isDuringDate = (curDataStr, beginDateStr, endDateStr) => {
-  var curDate = new Date(curDataStr),
-    beginDate = new Date(beginDateStr),
-    endDate = new Date(endDateStr);
-  if (curDate >= beginDate && curDate <= endDate) {
-    return true;
-  }
-  return false;
+	var curDate = new Date(curDataStr),
+		beginDate = new Date(beginDateStr),
+		endDate = new Date(endDateStr);
+	if (curDate >= beginDate && curDate <= endDate) {
+		return true;
+	}
+	return false;
 }
 
 // 返回两个时间点之间的所有日期，返回一个数组
@@ -932,32 +932,32 @@ export const isDuringDate = (curDataStr, beginDateStr, endDateStr) => {
   endDateStr: String 结束日期
 */
 export const getdiffdate = (stime, etime) => {
-  //初始化日期列表，数组
-  var diffdate = new Array();
-  var i = 0;
-  //开始日期小于等于结束日期,并循环
-  while (stime <= etime) {
-    diffdate[i] = stime;
+	//初始化日期列表，数组
+	var diffdate = new Array();
+	var i = 0;
+	//开始日期小于等于结束日期,并循环
+	while (stime <= etime) {
+		diffdate[i] = stime;
 
-    //获取开始日期时间戳
-    var stime_ts = new Date(stime).getTime();
-    console.log('当前日期：' + stime + '当前时间戳：' + stime_ts);
+		//获取开始日期时间戳
+		var stime_ts = new Date(stime).getTime();
+		console.log('当前日期：' + stime + '当前时间戳：' + stime_ts);
 
-    //增加一天时间戳后的日期
-    var next_date = stime_ts + (24 * 60 * 60 * 1000);
+		//增加一天时间戳后的日期
+		var next_date = stime_ts + (24 * 60 * 60 * 1000);
 
-    //拼接年月日，这里的月份会返回（0-11），所以要+1
-    var next_dates_y = new Date(next_date).getFullYear() + '-';
-    var next_dates_m = (new Date(next_date).getMonth() + 1 < 10) ? '0' + (new Date(next_date).getMonth() + 1) + '-' : (new Date(next_date).getMonth() + 1) + '-';
-    var next_dates_d = (new Date(next_date).getDate() < 10) ? '0' + new Date(next_date).getDate() : new Date(next_date).getDate();
+		//拼接年月日，这里的月份会返回（0-11），所以要+1
+		var next_dates_y = new Date(next_date).getFullYear() + '-';
+		var next_dates_m = (new Date(next_date).getMonth() + 1 < 10) ? '0' + (new Date(next_date).getMonth() + 1) + '-' : (new Date(next_date).getMonth() + 1) + '-';
+		var next_dates_d = (new Date(next_date).getDate() < 10) ? '0' + new Date(next_date).getDate() : new Date(next_date).getDate();
 
-    stime = next_dates_y + next_dates_m + next_dates_d;
+		stime = next_dates_y + next_dates_m + next_dates_d;
 
-    //增加数组key
-    i++;
-  }
-  return diffdate
-  // console.log(diffdate);
+		//增加数组key
+		i++;
+	}
+	return diffdate
+	// console.log(diffdate);
 }
 
 // 将json字符串转换成json对象
@@ -965,15 +965,15 @@ export const getdiffdate = (stime, etime) => {
   stringObj: 待转换的json字符串
 */
 export const stringTojson = (stringObj) => {
-  var jsonData = eval('(' + stringObj + ')');;
-  return jsonData;
+	var jsonData = eval('(' + stringObj + ')');;
+	return jsonData;
 }
 
 export const timeToStr = function (time) {
-  const Y = time.getFullYear() + '-';
-  const M = (time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1) + '-';
-  const D = (time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()) + ' ';
-  return Y + M + D;
+	const Y = time.getFullYear() + '-';
+	const M = (time.getMonth() + 1 < 10 ? '0' + (time.getMonth() + 1) : time.getMonth() + 1) + '-';
+	const D = (time.getDate() < 10 ? '0' + (time.getDate()) : time.getDate()) + ' ';
+	return Y + M + D;
 }
 
 /**
@@ -982,12 +982,12 @@ export const timeToStr = function (time) {
  */
 export const afternDay = function (startTime, n) {
 	const dd = new Date(startTime);
-  dd.setDate(dd.getDate() + n);
-  return timeToStr(dd);
+	dd.setDate(dd.getDate() + n);
+	return timeToStr(dd);
 }
 
 //根据毫秒数获取日期
-export const msToDate = function(msec) {
+export const msToDate = function (msec) {
 	let datetime = new Date(msec);
 	let year = datetime.getFullYear();
 	let month = datetime.getMonth();
@@ -995,58 +995,58 @@ export const msToDate = function(msec) {
 	let hour = datetime.getHours();
 	let minute = datetime.getMinutes();
 	let second = datetime.getSeconds();
-  
+
 	let result1 = year +
-				 '-' +
-				 ((month + 1) >= 10 ? (month + 1) : '0' + (month + 1)) +
-				 '-' +
-				 ((date + 1) < 10 ? '0' + date : date) +
-				 ' ' +
-				 ((hour + 1) < 10 ? '0' + hour : hour) +
-				 ':' +
-				 ((minute + 1) < 10 ? '0' + minute : minute) +
-				 ':' +
-				 ((second + 1) < 10 ? '0' + second : second);
-  
+		'-' +
+		((month + 1) >= 10 ? (month + 1) : '0' + (month + 1)) +
+		'-' +
+		((date + 1) < 10 ? '0' + date : date) +
+		' ' +
+		((hour + 1) < 10 ? '0' + hour : hour) +
+		':' +
+		((minute + 1) < 10 ? '0' + minute : minute) +
+		':' +
+		((second + 1) < 10 ? '0' + second : second);
+
 	let result2 = year +
-				 '-' +
-				 ((month + 1) >= 10 ? (month + 1) : '0' + (month + 1)) +
-				 '-' +
-				 ((date + 1) < 11 ? '0' + date : date);
-  
+		'-' +
+		((month + 1) >= 10 ? (month + 1) : '0' + (month + 1)) +
+		'-' +
+		((date + 1) < 11 ? '0' + date : date);
+
 	let result = {
 		hasTime: result1,
 		withoutTime: result2
 	};
-  
+
 	return result;
- }
+}
 
 /* 获取时间段内属于星期一(*)的日期们
  * begin: 开始时间
  * end：结束时间
  * weekNum：星期几 {number}
  */
-export const getWeek = function(begin, end, weekNum){
+export const getWeek = function (begin, end, weekNum) {
 	var dateArr = new Array();
 	var stimeArr = begin.split("-"); //=>["2020", "08", "30"]
 	var etimeArr = end.split("-"); //=>["2020", "08", "31"]
- 
+
 	var stoday = new Date();
-	stoday.setUTCFullYear(stimeArr[0], stimeArr[1]-1, stimeArr[2]);
+	stoday.setUTCFullYear(stimeArr[0], stimeArr[1] - 1, stimeArr[2]);
 	var etoday = new Date();
-	etoday.setUTCFullYear(etimeArr[0], etimeArr[1]-1, etimeArr[2]);
- 
-	var unixDb = stoday.getTime() - 8*60*60*1000;//开始时间的毫秒数
-	var unixDe = etoday.getTime() - 8*60*60*1000;//结束时间的毫秒数
- 
+	etoday.setUTCFullYear(etimeArr[0], etimeArr[1] - 1, etimeArr[2]);
+
+	var unixDb = stoday.getTime() - 8 * 60 * 60 * 1000;//开始时间的毫秒数
+	var unixDe = etoday.getTime() - 8 * 60 * 60 * 1000;//结束时间的毫秒数
+
 	for (var k = unixDb; k <= unixDe;) {
-	   let needJudgeDate = msToDate(parseInt(k)).withoutTime;
-	   //不加这个if判断直接push的话就是已知时间段内的所有日期
-	   if (new Date(needJudgeDate).getDay() === weekNum) {
-		   dateArr.push(needJudgeDate);
-	   }
-		k = k + 24*60*60*1000;
+		let needJudgeDate = msToDate(parseInt(k)).withoutTime;
+		//不加这个if判断直接push的话就是已知时间段内的所有日期
+		if (new Date(needJudgeDate).getDay() === weekNum) {
+			dateArr.push(needJudgeDate);
+		}
+		k = k + 24 * 60 * 60 * 1000;
 	}
 	return dateArr;
 }
@@ -1062,8 +1062,8 @@ export default {
 	factory,
 	mapping,
 	toArray,
-  getPath,
-  getPathName,
+	getPath,
+	getPathName,
 	timeZone,
 	batchGet,
 	cutOffUrl,
@@ -1092,14 +1092,14 @@ export default {
 	localChangeKey,
 	simpleDyControl,
 	mutationObserver,
-  objSum,
-  
-  getDaysBetween,
-  isDuringDate,
-  getdiffdate,
-  stringTojson,
-  timeToStr,
-  afternDay,
-  msToDate,
-  getWeek
+	objSum,
+
+	getDaysBetween,
+	isDuringDate,
+	getdiffdate,
+	stringTojson,
+	timeToStr,
+	afternDay,
+	msToDate,
+	getWeek
 }

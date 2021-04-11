@@ -5,7 +5,7 @@ import { DB } from '@utils/DB'
 import { get, isArray } from 'lodash'
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { Layout, Menu, Icon, Input } from 'antd'
+import { Layout, Menu, Input } from 'antd'
 import { withRouter, NavLink } from 'react-router-dom'
 import { toJS } from 'mobx';
 
@@ -39,7 +39,7 @@ const renderMenuItem = (menuArray, n = 0) => {
               :
               null
             } */}
-            <Icon type="appstore" />
+            {/* <Icon type="appstore" /> */}
             <span>{item.name}</span>
           </span>
         }>
@@ -55,7 +55,7 @@ const renderMenuItem = (menuArray, n = 0) => {
             :
             null
           } */}
-          <Icon type="appstore" />
+          {/* <Icon type="appstore" /> */}
           <span>{item.name}</span>
         </NavLink>
       </Menu.Item>
@@ -78,11 +78,11 @@ class SiderBarView extends Component {
     this.AppStore = this.props.AppStore
   }
 
- componentDidMount () {
-   // 请求菜单的接口
-   this.AppStore.getAccess((menuList) => {
-     this.getMenuList(menuList)
-   })
+  componentDidMount() {
+    // 请求菜单的接口
+    this.AppStore.getAccess((menuList) => {
+      this.getMenuList(menuList)
+    })
   }
 
   setMenu = (menuList) => {
@@ -140,11 +140,11 @@ class SiderBarView extends Component {
     return menuList
   }
 
-	/**
-	 * 菜单点击处理
-	 * @param  {Object} e 事件源对象
-	 * @return {empty}   无
-	 */
+  /**
+   * 菜单点击处理
+   * @param  {Object} e 事件源对象
+   * @return {empty}   无
+   */
   handleClick = e => {
     console.log('当前的激活的路由地址为', e.key, e)
     window._router = { code: e.key }
@@ -165,7 +165,7 @@ class SiderBarView extends Component {
   }
 
   // 设置一级菜单目录的keys
-  setRootKeys () {
+  setRootKeys() {
     if (0 === this.state.menuList.length) {
       return false
     }
@@ -200,7 +200,7 @@ class SiderBarView extends Component {
     }
   }
 
-  render () {
+  render() {
     console.log('sider bar render')
     let { menuList } = this.state
 
@@ -217,7 +217,7 @@ class SiderBarView extends Component {
     // inlineIndent 菜单层级左侧空格大小，单位为px，空格量=左侧空格大小*层级level
     return (
       <Sider trigger={null} collapsible collapsed={this.state.inlineCollapsed} className={className.join(' ')}>
-        
+
         <div className="logo" onClick={this.changeMenu} title={Config.isDev() ? '点击切换菜单完整性' : undefined} >
           <img src={`${CDN_BASE}/assets/imgs/login/ty-logo.png`} className="logo_img"></img>
           <div className="title_box">
@@ -229,12 +229,12 @@ class SiderBarView extends Component {
           </div>
         </div>
         <div className="menuWrap">
-        <div className="folding">
-        <div className="folding" onClick={this.inlineCollapsed}>
-            {/* <YxAction styleType="icon" message={false}
+          <div className="folding">
+            <div className="folding" onClick={this.inlineCollapsed}>
+              {/* <YxAction styleType="icon" message={false}
                 iconFont type={this.state.inlineCollapsed == true ? 'menu-unfold' : 'menu-fold'}
               onClick={this.inlineCollapsed} /> */}
-          </div>
+            </div>
           </div>
           <div className="searchBlock">
             <Search placeholder="请输入关键字" onSearch={this.filterMenu} style={{ width: '100%' }} />
@@ -248,22 +248,22 @@ class SiderBarView extends Component {
               renderTrackVertical={props => <div {...props} className="trackVertical" />}
               renderThumbVertical={props => <div {...props} className="thumbVertical" />}
             > */}
-              {/* 左侧菜单列表 */}
-              <Menu
-                theme="dark"
-                mode="inline"
-                collapsed={true}
-                inlineIndent={30}
-                openKeys={openKeys}
-                selectedKeys={[current]}
-                defaultOpenKeys={openKeys}
-                onClick={this.handleClick}
-                onOpenChange={this.handleOpen}
-                defaultSelectedKeys={[current]}
-                inlineCollapsed={this.state.inlineCollapsed}
-              >
-                {menuArray}
-              </Menu>
+            {/* 左侧菜单列表 */}
+            <Menu
+              theme="dark"
+              mode="inline"
+              collapsed={true}
+              inlineIndent={30}
+              openKeys={openKeys}
+              selectedKeys={[current]}
+              defaultOpenKeys={openKeys}
+              onClick={this.handleClick}
+              onOpenChange={this.handleOpen}
+              defaultSelectedKeys={[current]}
+              inlineCollapsed={this.state.inlineCollapsed}
+            >
+              {menuArray}
+            </Menu>
             {/* </Scrollbars> */}
           </div>
         </div>

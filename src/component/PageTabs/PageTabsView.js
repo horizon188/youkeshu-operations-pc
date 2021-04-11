@@ -4,7 +4,7 @@ import { get } from "lodash";
 import classNames from "classnames";
 import { observer, inject } from "mobx-react";
 import { withRouter, Route } from "react-router-dom";
-import { Tag, Dropdown, Icon, Tooltip, Menu } from "antd";
+import { Tag, Dropdown, Tooltip, Menu } from "antd";
 import { routerGenerator } from "router";
 const { SubMenu } = Menu;
 
@@ -54,14 +54,14 @@ export default class PageTabs extends Component {
 
   // 通过路径，获取标题name，如{'/': {name: '首页'}, ...}
   getTitleByPathname(pathname) {
-   
-  
+
+
     let tabTitle = this.stores.state.routerCfg[pathname];
-   
+
     if (!tabTitle) {
       const route = routerGenerator().find(item => {
-        
-      
+
+
         return item.path === pathname;
       });
       tabTitle = route || pathname;
@@ -320,8 +320,8 @@ export default class PageTabs extends Component {
           {tagElem}
         </Tooltip>
       ) : (
-        tagElem
-      );
+          tagElem
+        );
     });
 
     console.log("isIe10:", isIe10);
@@ -386,8 +386,8 @@ export default class PageTabs extends Component {
               </Menu>
             }
           >
-            <Tag size={"small"}  style={{ marginLeft: 0,background:'#fff',color:'rgba(0,0,0,0.45)',border:0}}>
-              标签选项 <Icon type="down" />
+            <Tag size={"small"} style={{ marginLeft: 0, background: '#fff', color: 'rgba(0,0,0,0.45)', border: 0 }}>
+              标签选项
             </Tag>
           </Dropdown>
         </div>

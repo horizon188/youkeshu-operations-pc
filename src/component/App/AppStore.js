@@ -1,14 +1,13 @@
 // lodash遍历对象的key键
 import { get, keys, filter } from 'lodash'
 // mobx的公共方法
-import { observable, action, useStrict, runInAction, autorun,computed } from 'mobx';
+import { observable, action, runInAction, autorun, computed } from 'mobx';
 // 请求路由配置项
 import { getRouterTable, getUserAccess, getMenuList, queryDirTree } from './AppServ';
 import Config from 'config/Config'
 import Utils from 'utils';
 
 // 严格模式
-useStrict(true);
 
 class AppStore {
   // 监视状态
@@ -20,40 +19,40 @@ class AppStore {
     menuList: [],
     buttonList: {},
     instanceList: [],
-    dirTree:[]
+    dirTree: []
   };
 
   // 构造函数
-  constructor() { 
+  constructor() {
 
   };
 
-// 获取商品类目
-@action
-queryDirTree = async () => {
-  try {
-    const { data, resultCode, resultMsg } = await queryDirTree();
-    if (resultCode + '' === '0') {
-      let newDir = [];
-      
-      data.map((item) => {
-        let obj = {};
-        obj.label = item.name;
-        obj.value = item.id;
-        newDir.push(obj)
-      })
-      newDir.unshift({
-        label: '全部',
-        value: null
-      })
-      runInAction(() => {
-        this.state.dirTree = newDir
-      })
-    }
-  } finally {
+  // 获取商品类目
+  @action
+  queryDirTree = async () => {
+    try {
+      const { data, resultCode, resultMsg } = await queryDirTree();
+      if (resultCode + '' === '0') {
+        let newDir = [];
 
+        data.map((item) => {
+          let obj = {};
+          obj.label = item.name;
+          obj.value = item.id;
+          newDir.push(obj)
+        })
+        newDir.unshift({
+          label: '全部',
+          value: null
+        })
+        runInAction(() => {
+          this.state.dirTree = newDir
+        })
+      }
+    } finally {
+
+    }
   }
-}
 
   // 将菜单的数组，整理成树
   array2tree(list, options = { customID: 'id', parentProperty: 'parentId' }) {
@@ -149,7 +148,7 @@ queryDirTree = async () => {
 
           console.log('1111111111111', result)
           this.state.menuList = result.menuList || [];
-          window._authList  = result.buttonList || [];
+          window._authList = result.buttonList || [];
           callback(result.menuList || [])
         } else {
           this.state.menuList = get(resArray[0], 'data.list', []);
@@ -200,7 +199,7 @@ queryDirTree = async () => {
       this.state.routerCfg[k] = titleObj[k];
     });
   }
-  
+
   @action.bound
   setState(payload) {
     this.state = { ...this.state, ...payload };
